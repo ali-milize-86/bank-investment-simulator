@@ -1,0 +1,80 @@
+
+
+#SLEEPTRACKER FIRST PROJECT
+
+
+#GOAL - TRY TO CREATE A SLEEP TRACKER PROGRAM THAT TRACKS YOUR SLEEP, AND
+#LOGS IT DAY BY DAY. THE OTHER GOAL IS TO RECOMMEND THE AMOUNT OF HOURS YOU NEED TO SLEEP DEPENDING ON A
+#PERSONS PREFERENCE AND SCHEDULE. IT WILL ALSO SERVE AS A BUILT IN ALARM, AND POINT SYSTEM AND POSSIBLY INTO
+#A GAME. THERE WILL BE LEADERBOARDS IN THE FUTURE WHICH IS COUNTED WORLDWIDE FOR LONGEST STREAK OF HEALTHY
+#SLEEP
+
+
+
+class SleepEntry:
+    def __init__(self, date, hours, notes):
+        self.date = date
+        self.hours = hours
+        self.notes = notes
+    
+    def to_string(self):
+        return self.date + "," + str(self.hours) + "," + self.notes
+
+class SleepTracker:
+    def __init__(self):
+        self.entries = []
+    
+    def add_entry(self, entry):
+        self.entries.append(entry)
+    
+    def view_entries(self):
+        for i in self.entries:
+            print(i.to_string())
+    
+    def average_sleep(self):
+        total = 0
+        for i in self.entries:
+            total += i.hours
+        return round(total / len(self.entries), 1)
+    
+    def save_to_file(self):
+        file = open("sleep_data.txt", "w")
+        for i in self.entries:
+            file.write(i.to_string() + "\n")
+        file.close()
+    
+    def load_from_file(self):
+        readingfile = open("sleep_data.txt", "r")
+        for line in readingfile:
+            parts = line.strip().split(",")
+            self.entries.append(SleepEntry(parts[0], float(parts[1]), parts[2]))
+        readingfile.close()
+
+def main():
+    tracker = SleepTracker()
+    while True:
+        print("\n===== Sleep Tracker =====")
+        print("1. Log sleep entry")
+        print("2. View all entries")
+        print("3. View average sleep")
+        print("4. Save entries")
+        print("5. Quit")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            dateofsleep = input("Enter the date: ")
+            hourofsleep = input("Enter the hours: ")
+            notesofsleep = input("Enter your notes: ")
+            entry = SleepEntry(dateofsleep, float(hourofsleep), notesofsleep)
+            tracker.add_entry(entry)
+            print("Entry saved!")
+        elif choice == "2":
+            tracker.view_entries()
+        elif choice == "3":
+            print("Average sleep:", tracker.average_sleep(), "hours")
+        elif choice == "4":
+            tracker.save_to_file()
+            print("Saved!")
+        elif choice == "5":
+            break
+
+main()

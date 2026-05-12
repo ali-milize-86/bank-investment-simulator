@@ -1,0 +1,11 @@
+alist = [100, 86, 868686, 8686868, 8686, 868686]
+
+
+print(alist)
+
+print(sorted(alist))
+
+
+
+
+
