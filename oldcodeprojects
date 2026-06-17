@@ -1,0 +1,1296 @@
+#Recall in the lesson on sorts that we had you complete the
+#Bubble and Selection sort, and we showed you Merge sort.
+#We didn't show any of insertion sort, and I bet you can
+#guess why.
+#
+#Implement insertion sort below.
+#
+#Name your function 'insertion'. insertion should take as
+#input a list, and return as output a sorted list. Note that
+#even though technically a sorting method does not have to
+#return the sorted list, yours should.
+#
+#If you're stuck on where to start, or having trouble
+#visualizing or understanding how exactly insertion sort
+#works, check out this website - https://visualgo.net/sorting
+#It provides a visual representation of all of the sorting
+#algorithms as well as pseudocode you can base your own code
+#off of.
+
+
+#Write your code here!
+
+def insertion(alist):
+    for i in range(1, len(alist)):
+        key = alist[i]      # pick up the current item
+        j = i - 1           # start comparing with item to the left
+        while j >= 0 and alist[j] > key:
+            alist[j + 1] = alist[j]  # shift item right
+            j -= 1
+        alist[j + 1] = key  # drop key in correct spot
+    return alist
+
+
+#The code below will test your function. If your function
+#works, it will print: [1, 2, 3, 4, 5].
+print(insertion([5, 1, 3, 2, 4]))
+
+
+
+#Recall in 5.2.4 Worked Example 1, we gave you the code for
+#merge_sort. You may copy that code into this problem and
+#modify it. Change it such that instead of sorting from
+#lowest to highest, it sorts from highest to lowest.
+#
+#Name your function sort_with_merge(). For example, if you call
+#merge_sort([5, 3, 1, 2, 4]), you would get [5, 4, 3, 2, 1].
+#
+#Do not use Python's sort or reverse methods to complete
+#this.
+
+
+#Write your code below!
+
+def sort_with_merge(alist):
+    if len(alist) <= 1:
+        return alist
+    mid = len(alist) // 2
+    left = sort_with_merge(alist[:mid])
+    right = sort_with_merge(alist[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] > right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(right[j:])
+    result.extend(left[i:])
+    return result
+
+
+
+
+
+#The code below will test your function. If it works, this
+#will print [5, 3, 1, -1, -3, -5].
+print(sort_with_merge([1, 3, -1, -3, -5, 5]))
+
+
+#A Stack is a type of list where instead of accessing
+#any item in the list at any time, you can only add
+#or remove items from the top of the Stack.
+#
+#Adding a new item to the stack is called "pushing"
+#the item onto the stack. Removing the top item on
+#the stack is called "popping" the item off the stack.
+#When an item is "popped" off the stack, it is removed
+#from the list altogether.
+#
+#Write a class called Stack. Stack should have the
+#following methods:
+#
+# - An __init__ method that initializes the empty list
+#   that is the stack's contents.
+# - A stack_push() method that takes one parameter (in
+#   addition to self): an item to push onto the top
+#   of the stack.
+# - A stack_pop() method that returns the current top
+#   item on the stack and removes it from the underlying
+#   list. If the list is already empty, this returns
+#   None.
+#
+#For example, the following code would print the
+#numbers 3, 2, and 1 (in that order). Note that this
+#is the opposite order of how they are pushed: the
+#pop method will always return the elements in the
+#reverse order that they were added in.
+#
+#new_stack = Stack()
+#new_stack.stack_push(1)
+#new_stack.stack_push(2)
+#new_stack.stack_push(3)
+#print(new_stack.stack_pop())
+#print(new_stack.stack_pop())
+#print(new_stack.stack_pop())
+
+#Add your class here!
+class Stack:
+    def __init__(self):
+        self.stack = []
+    def stack_push(self, anitem):
+        self.stack.append(anitem)
+    def stack_pop(self):
+        if len(self.stack) == 0:
+            return None
+        top = self.stack[-1]        # get the last item
+        self.stack = self.stack[:-1] # remove the last item
+        return top 
+        
+    
+        
+
+
+#The following lines of code will test your class.
+#If it works correctly, it will print 3, 2, and 1
+#in that order, each on their own line.
+new_stack = Stack()
+new_stack.stack_push(1)
+new_stack.stack_push(2)
+new_stack.stack_push(3)
+print(new_stack.stack_pop())
+print(new_stack.stack_pop())
+print(new_stack.stack_pop())
+
+
+
+#A Queue is a type of list where instead of accessing
+#any item in the list at any time, you can only add
+#items to the end of the list, and you can only access
+#items from the start of a list (sort of like a line at
+#a store: whoever gets in line first gets to the front
+#of the line first).
+#
+#Adding a new item to the queue is called "enqueueing"
+#the item into the queue. Removing an item from the
+#queue is called "dequeueing" the item from the queue.
+#When an item is "dequeued" from the queue, it is
+#removed from the list altogether.
+#
+#Write a class called Queue. Queue should have the
+#following methods:
+#
+# - An __init__ method that initializes the empty list
+#   that is the queue's contents.
+# - A enqueue() method that takes one parameter
+#   (in addition to self): an item to add to the end of
+#   the queue.
+# - A dequeue() method that returns the first item
+#   (that is, the one added first) from the queue and
+#   removes it from the underlying list. If the list is
+#   already empty, this returns None.
+#
+#For example, the following code would print the
+#numbers 1, 2, and 3 (in that order). Items are printed
+#in the same order in which they are added.
+#
+#new_queue = Queue()
+#new_queue.enqueue(1)
+#new_queue.enqueue(2)
+#new_queue.enqueue(3)
+#print(new_queue.dequeue())
+#print(new_queue.dequeue())
+#print(new_queue.dequeue())
+
+#Add your class here!
+
+class Queue:
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, anitem):
+        self.queue.append(anitem)
+    def dequeue(self):
+        if len(self.queue) == 0:
+            return None
+        else:
+            firstitem = self.queue[0]
+            self.queue = self.queue[0+1:]
+            return firstitem
+
+#The following lines of code will test your class.
+#If it works correctly, it will print 1, 2, and 3
+#in that order, each on their own line.
+new_queue = Queue()
+new_queue.enqueue(1)
+new_queue.enqueue(2)
+new_queue.enqueue(3)
+print(new_queue.dequeue())
+print(new_queue.dequeue())
+print(new_queue.dequeue())
+
+
+#In Python we deal with data structures like lists,
+#but we don't talk much about how lists are implemented
+#by Python itself.
+#
+#One way in which lists can be implemented is with what
+#is called a Linked List. In a Linked List, a list is
+#made of a series of items. Each item contains two
+#elements: its own value (node.value), and a pointer to
+#where to find the next element in the list
+#(node.next_node). So, you can't jump right in to
+#"item 7"; you instead have to start with the first
+#item and keep getting the next item until you reach the
+#seventh item.
+#
+#Below is some code we've written to implement a
+#Linked List. Specifically, this code represents a
+#single node in a linked list: a full list is created
+#just by chaining nodes like these together. The last
+#node in the linked list will point to None as the
+#next item; that indicates you've reached the end of
+#the linked list.
+#
+#Write a function called linked_list_search. Your
+#linked_list_search function should take two parameters:
+#a single linked list node, and a search term. Your
+#function should return True if the search term is the
+#value of the linked list node or any node after it.
+#It should return False if the value is not found in
+#the linked list.
+
+class LinkedListNode:
+    def __init__(self, value, next_node = None):
+        self.value = value
+        self.next_node = next_node
+    
+    
+#Write your function here!
+def linked_list_search(node, searchterm):
+    if node is None:
+        return False
+    if node.value == searchterm:
+        return True
+    return linked_list_search(node.next_node, searchterm)
+
+
+#Below are lines of code that create a linked list,
+#and then search for two values in that linked list:
+#one that is there, one that isn't. If your function
+#works, it should print True then False.
+node_7 = LinkedListNode(5)
+node_6 = LinkedListNode(2, node_7)
+node_5 = LinkedListNode(9, node_6)
+node_4 = LinkedListNode(1, node_5)
+node_3 = LinkedListNode(4, node_4)
+node_2 = LinkedListNode(6, node_3)
+root_node = LinkedListNode(7, node_2)
+
+print(linked_list_search(root_node, 9))
+print(linked_list_search(root_node, 3))
+
+
+
+
+#A common meme on social media is the name generator. These
+#are usually images where they map letters, months, days,
+#etc. to parts of fictional names, and then based on your
+#own name, birthday, etc., you determine your own.
+#
+#For example, here's one such image for "What's your
+#superhero name?": https://i.imgur.com/TogK8id.png
+#
+#Write a function called generate_name. generate_name should
+#have two parameters, both strings. The first string will
+#represent a filename from which to read name parts. The
+#second string will represent an individual person's name,
+#which will always be a first and last name separate by a
+#space.
+#
+#The file with always contain 52 lines. The first 26 lines
+#are the words that map to the letters A through Z in order
+#for the person's first name, and the last 26 lines are the
+#words that map to the letters A through Z in order for the
+#person's last name.
+#
+#Your function should return the person's name according to
+#the names in the file.
+#
+#For example, take a look at the names in heronames.txt
+#(look in the drop-down in the top left). If we were to call
+#generate_name("heronames.txt", "Addison Zook"), then the
+#function would return "Captain Hawk": Line 1 would map to
+#"A", which is the first letter of Addison's first name, and
+#line 52 would map to "Z", which is the first letter of
+#Addison's last name. The contents of those lines are
+#"Captain" and "Hawk", so the function returns "Captain Hawk".
+#
+#You should assume the contents of the file will change when
+#the autograder runs your code. You should NOT assume
+#that every name will appear only once. You may assume that
+#both the first and last name will always be capitalized.
+#
+#HINT: Use chr() to convert an integer to a character.
+#chr(65) returns "A", chr(90) returns "Z".
+
+
+#Add your code here!
+def generate_name(filename, personname):
+    personname = personname.split(" ")
+    firstname = personname[0]
+    firstnameletter = firstname[0]
+    lastname = personname[1]
+    lastnameletter = lastname[0]
+    file = open(filename, "r")
+    alist = []
+    for line in file:
+        alist.append(line.strip())
+    firstindex = ord(firstnameletter) - 65
+    secondindex = ord(lastnameletter) - 65 + 26
+    file.close()
+    return alist[firstindex] + " " + alist[secondindex]
+
+
+
+
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print: Captain Hawk, Doctor Yellow Jacket, and Moon Moon,
+#each on their own line.
+print(generate_name("heronames.txt", "Addison Zook"))
+print(generate_name("heronames.txt", "Uma Irwin"))
+print(generate_name("heronames.txt", "David Joyner"))
+
+
+
+#In this problem, we're going to explore a little of how
+#game AI works. We'll do this with a simple problem: building
+#an agent to play the popular card game Blackjack.
+#
+#Blackjack is a card game played with a standard 52-card
+#deck. Suits do not matter in Blackjack, and so we'll just
+#use letters to indicate the different cards: A, 2, 3, 4, 5,
+#6, 7, 8, 9, 0 (for 10), J, Q, K. Note that the number 10 is
+#represented by the single character 0.
+#
+#The goal of Blackjack is to get as close to 21 points as
+#possible without going higher. Each of the thirteen cards
+#above has a point total attached: the numerals are worth
+#their given value (2 points for 2, 7 points for 7, etc.).
+#J, Q, and K are worth 10 points. A is worth either 1 or 11
+#points, whichever is better for the player.
+#
+#At any time, the player has some number of cards in their
+#hand. They must then make a decision of whether to Hit or
+#Stay. Hit means they request an additional card, Stay means
+#they stop with their current total. Players generally try
+#to Hit until it is likely that another card will push them
+#over 21. For example, if a player has a 5 and a 7, there is
+#a relatively low chance that another card would push them
+#over 21 (only J, Q, and K would do so, since 12 + 10 = 22).
+#On the other hand, if they have a 5, a 6, and a 7, they will
+#likely stay because any card above 3 will push them over 21
+#points.
+#
+#The specific goal in Blackjack is to get closer to 21 than
+#the dealer. Dealers must follow a set of prescribed rules
+#for when to Hit and Stay. These are the rules we'll use for
+#our Blackjack-playing AI.
+#
+#The rules are:
+#
+# - The dealer must Hit if their total is below 17.
+# - The dealer must Stay as soon as their total is 17 or
+#   higher.
+# - An Ace (A) should be counted as 11 if it puts the
+#   dealer between 17 and 21 points. If it puts them over
+#   21, though, it should be counted as 1.
+#
+#For example, imagine the dealer's first cards are A and 3.
+#Their point total is either 4 or 14, both below 17, so they
+#Hit. The next card is a 9. If we count the A as 11, then
+#their total is now 23 (11 + 3 + 9), and so we count the
+#A as 1. Their total is 13, and so they Hit again. The next
+#card is a 7, so their total is 20, so they Stay.
+#
+#Write a function called next_move. next_move should have
+#one parameter, a string. Each character of the string will
+#be a card in the dealer's current hand, such as "AK" or
+#"175". The function should return one of three strings:
+#
+# - "Hit" if the dealer should take another card.
+# - "Stay" if the dealer should not take another card.
+# - "Bust" if the sum is already over 21.
+#
+#Remember, your function is only responsible for playing
+#one move at a time. Take in a string representing the
+#current hand, return "Hit", "Stay", or "Bust".
+
+
+#Add your code here!
+def next_move(astring):
+    dealerworth = 0
+    for card in astring:
+        if card in "23456789":
+            dealerworth += int(card)
+        elif card in "JQK":
+            dealerworth += 10
+        elif card == "0":
+            dealerworth += 10
+        elif card == "A":
+            if 17 <= dealerworth + 11 <= 21:
+                dealerworth += 11
+            else:
+                dealerworth += 1
+    if dealerworth > 21:
+        return "Bust"
+    elif dealerworth >= 17:
+        return "Stay"
+    else:
+        return "Hit"
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print: Hit, Hit, Stay, and Bust.
+print(next_move("A3"))
+print(next_move("A39"))
+print(next_move("A397"))
+print(next_move("A397K"))
+
+
+#Earlier in the course, you implemented a function that could
+#find if someone had won a particular game of either tic-tac-
+#toe or mancala based on a 2D list or tuple representing the
+#current game board.
+#
+#In this problem, you'll do the same thing, but for the game
+#Connect 4. Write a function called check_winner which takes
+#as input a 2D list. It should return "X" if there are four
+#adjacent "X" values anywhere in the list (row, column,
+#diagonal); "O" if there are four adjacent "O" values
+#anywhere in the list; and None if there are neither.
+#
+#Here are the ways Connect-4 is different from tic-tac-toe:
+#
+# - Connect-4 is played with 6 rows and 7 columns, not 3
+#   rows and 3 columns.
+# - You must have 4 in a row (or column or diagonal) to win
+#   instead of 3.
+# - You may only place pieces in the bottom-most empty
+#   space in a column (e.g. you "drop" the pieces in the
+#   column and they fall to the first empty spot). Note,
+#   though, that this shouldn't affect your reasoning.
+#
+#To keep things simple, we'll still use "X" and "O" to
+#represent the players, and None to represent empty spots.
+#You may assume there will be only one winner per board,
+#no characters besides "X", "O", and None, and you don't
+#have to worry about whether the board is actually a
+#valid game of Connect 4.
+#
+#Hints:
+# - Don't forget both kinds of diagonals, top-left to
+#   bottom-right and bottom-left to top-right.
+# - This board is too large to check every possible place
+#   for a winner: there are 69 places a player could win.
+# - Remember, if you put a negative index in a list,
+#   Python "wraps around" and checks the last value. You
+#   may have to control for this.
+
+
+#Write your function here!
+
+def check_winner(a2dlist):
+    # check horizontal
+    for row in a2dlist:
+        for col in range(len(row) - 3):  # stop 3 from end
+            if row[col] == row[col+1] == row[col+2] == row[col+3] and row[col] is not None:
+                return row[col]
+    # check vertical
+    for col in range(len(a2dlist[0])):
+        for row in range(len(a2dlist) - 3):
+            if a2dlist[row][col] == a2dlist[row+1][col] == a2dlist[row+2][col] == a2dlist[row+3][col] and a2dlist[row][col] is not None:
+                return a2dlist[row][col]
+    # check diagonal top-left to bottom-right
+    for row in range(len(a2dlist) - 3):
+        for col in range(len(a2dlist[0]) - 3):
+            if a2dlist[row][col] == a2dlist[row+1][col+1] == a2dlist[row+2][col+2] == a2dlist[row+3][col+3] and a2dlist[row][col] is not None:
+                return a2dlist[row][col]
+    # check diagonal bottom-left to top-right
+    for row in range(3, len(a2dlist)):
+        for col in range(len(a2dlist[0]) - 3):
+            if a2dlist[row][col] == a2dlist[row-1][col+1] == a2dlist[row-2][col+2] == a2dlist[row-3][col+3] and a2dlist[row][col] is not None:
+                return a2dlist[row][col]
+    return None
+
+
+#The code below tests your function on three Connect-4
+#boards. Remember, the line breaks are not needed to create
+#a 2D tuple; they're used here just for readability.
+xwins = ((None, None, None, None, None, None, None),
+         (None, None, None, None, None, None, None),
+         (None, None, None, None, "X" , None, None),
+         (None, None, None, "X" , "O" , "O", None),
+         (None, "O" , "X" , "X" , "O" , "X", None),
+         ("O" , "X" , "O" , "O" , "O" , "X" , "X"))
+owins = ((None, None, None, None, None, None, None),
+         (None, None, None, None, None, None, None),
+         ("O" , "O" , "O" , "O" , None, None, None),
+         ("O" , "X" , "X" , "X" , None, None, None),
+         ("X" , "X" , "X" , "O" , "X" , None, None),
+         ("X" , "O" , "O" , "X" , "O" , None, None))
+nowins =(("X" , "X" , None, None, None, None, None),
+         ("O" , "O" , None, None, None, None, None),
+         ("O" , "X" , "O" , "O" , None, "O" , "O" ),
+         ("O" , "X" , "X" , "X" , None, "X" , "X" ),
+         ("X" , "X" , "X" , "O" , "X" , "X" , "O" ),
+         ("X" , "O" , "O" , "X" , "O" , "X" , "O" ))
+         
+print(check_winner(xwins))
+print(check_winner(owins))
+print(check_winner(nowins))
+
+
+#A common problem in academic settings is plagiarism
+#detection. Fortunately, software can make this pretty easy!
+#
+#In this problem, you'll be given two files with text in
+#them. Write a function called check_plagiarism with two
+#parameters, each representing a filename. The function
+#should find if there are any instances of 5 or more
+#consecutive words appearing in both files. If there are,
+#return the longest such string of words (in terms of number
+#of words, not length of the string). If there are not,
+#return the boolean False.
+#
+#For simplicity, the files will be lower-case text and spaces
+#only: there will be no punctuation, upper-case text, or
+#line breaks.
+#
+#We've given you three files to experiment with. file_1.txt
+#and file_2.txt share a series of 5 words: we would expect
+#check_plagiarism("file_1.txt", "file_2.txt") to return the
+#string "if i go crazy then". file_1.txt and file_3.txt
+#share two series of 5 words, and one series of 11 words:
+#we would expect check_plagiarism("file_1.txt", "file_3.txt")
+#to return the string "i left my body lying somewhere in the
+#sands of time". file_2.txt and file_3.txt do not share any
+#text, so we would expect check_plagiarism("file_2.txt",
+#"file_3.txt") to return the boolean False.
+#
+#Be careful: there are a lot of ways to do this problem, but
+#some would be massively time- or memory-intensive. If you
+#get a MemoryError, it means that your solution requires
+#storing too much in memory for the code to ever run to
+#completion. If you get a message that says "KILLED", it
+#means your solution takes too long to run.
+
+
+#Add your code here!
+
+def check_plagiarism(afilename, anotherfile):
+    firstfile = open(afilename, "r")
+    secondfile = open(anotherfile, "r")
+    first_words = firstfile.read().split()
+    second_words = secondfile.read().split()
+    firstfile.close()
+    secondfile.close()
+    
+    longest = ""
+    for i in range(len(first_words)):
+        for j in range(i + 5, len(first_words) + 1):
+            phrase = " ".join(first_words[i:j])
+            second_phrase = " ".join(second_words)
+            if phrase in second_phrase and len(phrase.split()) > len(longest.split()):
+                longest = phrase
+    
+    return longest if longest else False
+
+    
+
+
+
+
+
+
+
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print:
+#if i go crazy then
+#i left my body lying somewhere in the sands of time
+#False
+print(check_plagiarism("file_1.txt", "file_2.txt"))
+print(check_plagiarism("file_1.txt", "file_3.txt"))
+print(check_plagiarism("file_2.txt", "file_3.txt"))
+
+
+#Let's try out a sort of data analysis-style problem. In
+#this problem, you're going to have access to a data set
+#covering Georgia Tech's all-time football history. The data
+#will be a CSV file, meaning that each line will be a comma-
+#separated list of values. Each line will describe one game.
+#The columns, from left-to-right, are:
+#
+# - Date: the date of the game, in Year-Month-Day format.
+# - Opponent: the name of the opposing team
+# - Location: Home, Away, or Neutral
+# - Points For: Points scored by Georgia Tech
+# - Points Against: Points scored by the opponent
+#
+#If Points For is greater than Points Against, then Georgia
+#Tech won the game. If Points For is less than Points Against,
+#then Georgia Tech lost the game. If the two are equal, then
+#the game was a tie.
+#
+#You can see a subsection of this dataset in season2016.csv
+#in the top left, but the actual dataset you'll be accessing
+#here will have 1237 games.
+#
+#Write a function called all_time_record. all_time_record
+#should take as input a string representing an opposing team
+#name. It should return a string representing the all-time
+#record between Georgia Tech and that opponent, in the form
+#Wins-Losses-Ties. For example, Georgia Tech has beaten
+#Clemson 51 times, lost 28 times, and tied 2 times. So,
+#all_time_record("Clemson") would return the string "51-28-2".
+#
+#We have gone ahead and started the function and opened the
+#file for you. The first line of the file are headers:
+#Date,Opponent,Location,Points For,Points Against. After that,
+#every line is a game.
+
+
+def all_time_record(opponent):
+    record_file = open('../resource/lib/public/georgia_tech_football.csv', 'r')
+    wins = 0
+    losses = 0
+    ties = 0
+    next(record_file)
+    for line in record_file:
+        parts = line.strip().split(",")
+        if parts[1] == opponent:
+            if int(parts[3]) > int(parts[4]):
+                wins += 1
+            elif int(parts[3]) < int(parts[4]):
+                losses += 1
+            elif int(parts[3]) == int(parts[4]):
+                ties += 1
+    record_file.close()
+    return str(wins) + "-" + str(losses) + "-" + str(ties)
+    
+    #Add some code here! Don't forget to close the file when 
+    #you're done reading from it, before returning.
+    
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print: 51-28-2, 51-33-1, and 29-21-3, each on a separate
+#line.
+print(all_time_record("Clemson"))
+print(all_time_record("Duke"))
+print(all_time_record("North Carolina"))
+
+
+
+
+#One of the early common methods for encrypting text was the
+#Playfair cipher. You can read more about the Playfair cipher
+#here: https://en.wikipedia.org/wiki/Playfair_cipher
+#
+#The Playfair cipher starts with a 5x5 matrix of letters,
+#such as this one:
+#
+# D A V I O
+# Y N E R B
+# C F G H K
+# L M P Q S
+# T U W X Z
+#
+#To fit the 26-letter alphabet into 25 letters, I and J are
+#merged into one letter. When decrypting the message, it's
+#relatively easy to tell from context whether a letter is
+#meant to be an i or a j.
+#
+#To encrypt a message, we first remove all non-letters and
+#convert the entire message to the same case. Then, we break
+#the message into pairs. For example, imagine we wanted to
+#encrypt the message "PS. Hello, worlds". First, we could
+#convert it to PSHELLOWORLDS, and then break it into letter
+#pairs: PS HE LL OW OR LD S. If there is an odd number of
+#characters, we add X to the end.
+#
+#Then, for each pair of letters, we locate both letters in
+#the cipher square. There are four possible orientations
+#for the pair of letters: they could be in different rows
+#and columns (the "rectangle" case), they could be in the
+#same row but different columns (the "row" case), they could
+#be in the same column but different rows (the "column"
+#case), or they could be the same letter (the "same" case).
+#
+#Looking at the message PS HE LL OW OR LD SX:
+#
+# - PS is the Row case: P and S are in the same row.
+# - HE is the Rectangle case: H and E are in different rows
+#   and columns of the square.
+# - LD is the Column case: L and D are in the same column.
+# - LL is the Same case as it's two of the same letter.
+#
+#For the Same case, we replace the second letter in the pair
+#with X, and then proceed as normal. When decrypting, it
+#would be easy to see the our result was not intended to be
+#PS HELXO WORLDSX, and we would thus assume the X is meant to
+#repeat the previous letter, becoming PS HELLO WORLDSX.
+#
+#What we do for each of the other three cases is different:
+#
+# - For the Rectangle case, we replace each letter with
+#   the letter in the same row, but the other letter's
+#   column. For example, we would replace HE with GR:
+#   G is in the same row as H but the same column as E,
+#   and R is in the same row as E but the same column as
+#   H. For another example, CS would become KL: K is in
+#   C's row but S's column, and L is in C's column but S's
+#   row.
+# - For the Row case, we pick the letter to the right of
+#   each letter, wrapping around the end of the row if we
+#   need to. PS becomes QL: Q is to the right of P, and L
+#   is to the right of S if we wrap around the end of the
+#   row.
+# - For the Column case, we pick the letter below each
+#   letter, wrapping around if necessary. LD becomes TY:
+#   T is below L and Y is below D.
+#
+#We would then return the resultant encrypted message.
+#
+#Decrypting a message is essentially the same process.
+#You would use the exact same cipher and process, except
+#for the Row and Column cases, you would shift left and up
+#instead of right and down.
+#
+#Write two methods: encrypt and decrypt. encrypt should
+#take as input a string, and return an encrypted version
+#of it according to the rules above.
+#
+#To encrypt the string, you would:
+#
+# - Convert the string to uppercase.
+# - Replace all Js with Is.
+# - Remove all non-letter characters.
+# - Add an X to the end if the length if odd.
+# - Break the string into character pairs.
+# - Replace the second letter of any same-character
+#   pair with X (e.g. LL -> LX).
+# - Encrypt it.
+#
+#decrypt should, in turn, take as input a string and
+#return the unencrypted version, just undoing the last
+#step. You don't need to worry about Js and Is, duplicate
+#letters, or odd numbers of characters in decrypt.
+#
+#For example:
+#
+# encrypt("PS. Hello, world") -> "QLGRQTVZIBTYQZ"
+# decrypt("QLGRQTVZIBTYQZ") -> "PSHELXOWORLDSX"
+#
+#HINT: You might find it easier if you implement some
+#helper functions, like a find_letter function that
+#returns the row and column of a letter in the cipher.
+#
+#HINT 2: Once you've written encrypt, decrypt should
+#be trivial: try to think of how you can modify encrypt
+#to serve as decrypt.
+#
+#To make this easier, we've gone ahead and created the
+#cipher as a 2D tuple for you:
+CIPHER = (("D", "A", "V", "I", "O"),
+          ("Y", "N", "E", "R", "B"),
+          ("C", "F", "G", "H", "K"),
+          ("L", "M", "P", "Q", "S"),
+          ("T", "U", "W", "X", "Z"))
+
+
+
+#Add your code here!
+def find_letter(letter):
+    for row in range(5):
+        for column in range(5):
+            if CIPHER[row][column] == letter:
+                return row, column
+
+def encrypt(astring):
+    encrypt = astring
+    newstring = ""
+    encrypt = encrypt.upper()
+    for letter in encrypt:
+        if letter not in ".,;:'\"[]{}-+=!@#$%^&*()1234567890`~ ":
+            if letter == "J":
+                newstring += "I"
+            else:
+                newstring += letter
+    if len(newstring) % 2 == 1:
+        newstring += "X"
+    result = ""
+    for i in range(0, len(newstring), 2):
+        pair = newstring[i] + newstring[i+1]
+        if pair[0] == pair[1]:
+            pair = pair[0] + "X"
+        row1, col1 = find_letter(pair[0])
+        row2, col2 = find_letter(pair[1])
+        if row1 != row2 and col1 != col2:
+            new_letter1 = CIPHER[row1][col2]
+            new_letter2 = CIPHER[row2][col1]
+        if row1 == row2 and col1 != col2:
+            new_letter1 = CIPHER[row1][(col1 + 1) % 5]
+            new_letter2 = CIPHER[row2][(col2 + 1) % 5]
+        if row1 != row2 and col1 == col2:
+            new_letter1 = CIPHER[(row1 + 1) % 5][col1]
+            new_letter2 = CIPHER[(row2 + 1) % 5][col2]
+        result += new_letter1 + new_letter2
+    
+    return result
+
+def decrypt(astring):
+    encrypt = astring
+    newstring = ""
+    encrypt = encrypt.upper()
+    for letter in encrypt:
+        if letter not in ".,;:'\"[]{}-+=!@#$%^&*()1234567890`~ ":
+            if letter == "J":
+                newstring += "I"
+            else:
+                newstring += letter
+    if len(newstring) % 2 == 1:
+        newstring += "X"
+    result = ""
+    for i in range(0, len(newstring), 2):
+        pair = newstring[i] + newstring[i+1]
+        if pair[0] == pair[1]:
+            pair = pair[0] + "X"
+        row1, col1 = find_letter(pair[0])
+        row2, col2 = find_letter(pair[1])
+        if row1 != row2 and col1 != col2:
+            new_letter1 = CIPHER[row1][col2]
+            new_letter2 = CIPHER[row2][col1]
+        if row1 == row2 and col1 != col2:
+            new_letter1 = CIPHER[row1][(col1 - 1) % 5]
+            new_letter2 = CIPHER[row2][(col2 - 1) % 5]
+        if row1 != row2 and col1 == col2:
+            new_letter1 = CIPHER[(row1 - 1) % 5][col1]
+            new_letter2 = CIPHER[(row2 - 1) % 5][col2]
+        result += new_letter1 + new_letter2
+    
+    return result
+
+
+
+#Create a class called TheaterTicket. TheaterTicket
+#should have two attributes (instance variables): section
+#and matinee. Make sure the variable names match those
+#words. section will be a string; matinee will be a boolean.
+#
+#TheaterTicket should have a constructor with two required
+#parameters, one for each of those attributes (section and
+#matinee in that order).
+#
+#TheaterTicket should also have a method called
+#get_ticket_price. get_ticket_price should have one
+#additional parameter (other than self): quantity, an
+#integer representing the number of tickets between 1 and
+#10.
+#
+#get_ticket_price should return the price of the tickets
+#represented by the instance. The price is determined first
+#by section:
+#
+# - If section is 'floor', the price is 200.
+# - If section is 'orchestra', the price is 100.
+# - If section is 'mezzanine', the price is 60.
+# - If section is 'gallery', the price is 30.
+#
+#The section price is multiplied by the number of tickets.
+#Then, if matinee is true, $20 per ticket is deducted from
+#the final cost. The price should be returned as an integer.
+#
+#For example:
+#
+# test_ticket = TheaterTicket('floor', True)
+# print(test_ticket.get_ticket_price(5)) -> 900
+#
+#A floor ticket is $200. There are 5 tickets, for a total
+#of $1000. The show is a matinee, so $20 per ticket is
+#deducted, and $1000 - ($20 * 5) = $900. So, the method
+#returns 900.
+#
+#HINT: Quantity is NOT an attribute of the object; it is
+#an argument only passed into the get_ticket_price method.
+
+
+#Write your class here!
+
+class TheaterTicket:
+    def __init__(self, section, matinee):
+        self.section = section
+        self.matinee = matinee
+    def get_ticket_price(self, quantity):
+        price = 0
+        if self.section == "floor":
+            price += 200
+        elif self.section == "orchestra":
+            price += 100
+        elif self.section == "mezzanine":
+            price += 60
+        elif self.section == "gallery":
+            price += 30
+        price *= quantity
+        if self.matinee == True:
+            price = price - (quantity * 20)
+        return price
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#The code below will test your class. If it works, it
+#should print floor, True, and 900.
+test_ticket = TheaterTicket('floor', True)
+print(test_ticket.section)
+print(test_ticket.matinee)
+print(test_ticket.get_ticket_price(5))
+
+
+
+
+
+#Remember that Fibonacci's sequence is a sequence of numbers
+#where every number is the sum of the previous two numbers.
+#
+#Rosieacci numbers are similar to Fibonacci numbers, but
+#with two differences:
+#
+# - Fibonacci numbers are famous, Rosieacci numbers are not.
+# - In Rosieacci numbers, the most recent number is added
+#   twice. A given Rosieacci number is the sum of two times
+#   the preceding number, plus the number before it.
+#
+#The Rosieacci sequence starts with two 1s (the base cases).
+#Then, the third number is the sum of the first and twice the
+#second (1 + 1 + 1 = 3). The fourth number is the sum of the
+#second and twice the third (1 + 3 + 3 = 7). The fifth number
+#is the sum of the third and twice the fourth (3 + 7 + 7 = 17).
+#The sixth number is the sum of the fourth and twice the fifth
+#(7 + 17 + 17 = 41). And so on.
+#
+#The first several Rosieacci numbers (and their indices) are
+#thus:
+#
+# 1  1  3  7 17 41 99 239 577 1393 3363 8119
+# 1  2  3  4  5  6  7   8   9   10   11   12
+#
+#Write a function called rosieacci that returns the nth
+#Rosieacci number. For example:
+#
+# rosieacci(5) -> 17
+# rosieacci(12) -> 8119
+#
+#We recommend implementing rosieacci recursively, but it
+#is not required.
+
+
+#Write your code here!
+def rosieacci(anumber):
+    if anumber == 1:
+        return 1
+    if anumber == 2:
+        return 2
+    else:
+        return rosieacci(anumber - 2) + 2 * rosieacci(anumber - 1)
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print: 17, then 8119
+print(rosieacci(5))
+print(rosieacci(12))
+
+
+
+#This problem will make use of the TheaterTicket class you wrote
+#in Problem 1. You can copy/paste it into this problem if you want
+#to, but you don't need to. When you click Submit, your code will
+#be tested with our TheaterTicket class.
+#
+#Write a function called find_best_ticket. find_best_ticket should
+#have three parameters: a list of available tickets (a list of
+#instances of the TheaterTicket class), a quantity (an integer),
+#and a budget (an integer).
+#
+#find_best_ticket should return the price of the most expensive
+#tickets available from the list that is less than or equal to
+#the given budget for the given quantity of tickets. If there are no
+#available tickets that come under the budget for the given quantity,
+#find_best_ticket should return False.
+#
+#As a reminder, every instance of TheaterTicket has a method called
+#get_ticket_price. get_ticket_price has one parameter, a quantity.
+#get_ticket_price returns the cost of the given quantity of that
+#ticket. For example, if quantity is 5 and budget is 500, then the
+#function would return the largest number to result from calling
+#get_ticket_price(5) from each instance in the list of TheaterTicket.
+#
+#For example, imagine that the customer's budget was $100 for 5
+#tickets. The only tickets that could be affordable at this price
+#would be gallery seats at the matinee, which are $10 per ticket
+#(the next lowest price would be gallery seats at a non-matinee,
+#at $30 per ticket or $150, over the customer's budget).
+#
+#So, if there was a ticket in the list of tickets that with
+#'gallery' as the section and True for matinee, then
+#find_best_ticket would return $50, the price of five gallery
+#matinee tickets. If not, it would return False, since no other
+#tickets are affordable.
+
+# - If section is 'floor', the price is 200.
+# - If section is 'orchestra', the price is 100.
+# - If section is 'mezzanine', the price is 60.
+# - If section is 'gallery', the price is 30.
+#
+#The section price is multiplied by the number of tickets.
+#Then, if matinee is true, $20 per ticket is deducted from
+#the final cost. The price should be returned as an integer.
+#HINT: You don't need to worry about the inner workings of the
+#TheaterTicket class. You just need to find the highest result
+#under the given budget from calling get_ticket_price(quantity).
+
+class TheaterTicket:
+    def __init__(self, section, matinee):
+        self.section = section
+        self.matinee = matinee
+    def get_ticket_price(self, quantity):
+        price = 0
+        if self.section == "floor":
+            price += 200
+        elif self.section == "orchestra":
+            price += 100
+        elif self.section == "mezzanine":
+            price += 60
+        elif self.section == "gallery":
+            price += 30
+        price *= quantity
+        if self.matinee == True:
+            price = price - (quantity * 20)
+        return price
+#Write your function here!
+def find_best_ticket(alist, quantity, budget):
+    best = 0
+    for ticket in alist:
+        pricey = ticket.get_ticket_price(quantity)
+        if pricey <= budget and pricey >= best:
+            best = pricey
+    if best == 0:
+        return False
+
+    return best
+    
+
+
+
+#You can do this problem without having direct access to the
+#definition of the TheaterTicket class. However, if you would like,
+#you may copy your code from Problem 1 here to test your
+#function. If you do that, you may uncomment the following lines
+#to test your function out. Note that our autograder will use our
+#copy of TheaterTicket, not yours; so if your class doesn't match
+#the description, your code may work with your class but not with
+#ours.
+#
+#If you do copy/paste in your TheaterTicket class and uncomment
+#these lines, they should print 50, False, 200, 400
+
+#available_ticket_1 = TheaterTicket('gallery', True)
+#available_ticket_2 = TheaterTicket('floor', True)
+#available_ticket_3 = TheaterTicket('floor', False)
+#available_ticket_4 = TheaterTicket('orchestra', False)
+#available_tickets = [available_ticket_1, available_ticket_2,
+#                     available_ticket_3, available_ticket_4]
+#
+#print(find_best_ticket(available_tickets, 5, 100))
+#print(find_best_ticket(available_tickets, 5, 40))
+#print(find_best_ticket(available_tickets, 1, 1000))
+#print(find_best_ticket(available_tickets, 4, 500))#
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# In the playground game 500, players compete to earn 500
+#points. To win a round, they must also win by at least
+#50 points. If a player reaches 500 points but another
+#player has more than 450 points, play continues until one
+#player has 500 or more points and a 50-point lead on
+#the next-highest score.
+#
+#Write a function called check_winner. check_winner should
+#have one parameter, a list of integers. There will be at
+#least two integers, but there may be as many as 12.
+#
+#If one of the integers represents a winning score (meaning
+#that it is over 500 and more than 50 points ahead of second
+#place), check_winner should return "Winning score: X", where
+#X is replaced by the winning score.
+#
+#If no player has won yet (meaning that either no one is
+#over 500 points, or that fewer than 50 points separate
+#first and second place), check_winner should return the
+#string "Keep playing!"
+
+
+#Write your function here!
+def check_winner(alistofint):
+    sortedlist = sorted(alistofint)
+    lastindex = len(sortedlist)
+    highestscore = sortedlist[lastindex - 1]
+    secondhighest = sortedlist[lastindex - 2]
+    if highestscore >= 500 and secondhighest <= (highestscore - 50):
+        return "Winning score: " + str(highestscore)
+    else:
+        return "Keep playing!"
+
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will output:
+#Winning score: 500
+#Winning score: 500
+#Keep playing!
+#Winning score: 575
+#Keep playing!
+print(check_winner([100, 200, 300, 400, 500]))
+print(check_winner([500, 450, 400, 350, 300, 250, 200, 150, 100]))
+print(check_winner([500, 470, 320]))
+print(check_winner([575, 470]))
+print(check_winner([575, 565, 320, 210, 200]))
+
+
+
+#Write a function called count_duplicates. The function
+#should have one parameter, a list of integers. The
+#function should return the number of integers in the
+#list that are duplicates of earlier integers in the
+#list.
+#
+#For example:
+#
+# count_duplicates([1, 2, 2, 3, 3, 3]) -> 3
+#
+#There are three duplicates in that list; the second 2,
+#the second 3, and the third 3.
+#
+#Here are other examples:
+#
+# count_duplicates([1, 2, 3, 4, 5, 6, 7]) -> 0
+# count_duplicates([5, 5, 5, 5, 5, 5, 5, 5, 5]) -> 8
+# count_duplicates([7, 3, 7, 3, 7, 3, 7, 3]) -> 6
+
+
+#Write your function here!
+def count_duplicates(alistofintegers):
+    dupcount = 0
+    duplist = []
+    for item in alistofintegers:
+        if item not in duplist:
+            duplist.append(item)
+        else:
+            dupcount += 1
+    return dupcount
+
+
+#The lines below will test your code. Feel free to modify
+#them. If your code is working properly, these will print:
+#3, 0, 8, 6, each on its own line.
+print(count_duplicates([1, 2, 2, 3, 3, 3]))
+print(count_duplicates([1, 2, 3, 4, 5, 6, 7]))
+print(count_duplicates([5, 5, 5, 5, 5, 5, 5, 5, 5]))
+print(count_duplicates([7, 3, 7, 3, 7, 3, 7, 3]))
+
+
+
+#Write a function called bananafy. bananafy should take one
+#parameter, a string. bananafy should replace every vowel in
+#the string with the previous vowel from the alphabet: e should
+#become a, i should become e, o should become i, and u should
+#become o. a should, in turn, become u. This should be done
+#for both capital and lower-case vowels. Then, bananafy should
+#return the result.
+#
+#For example:
+#
+# bananafy("banana") -> "bununu"
+# bananafy("benene") -> "banana"
+# bananafy("AEIOU") -> "UAEIO"
+# bananafy("Four Score And Seven Years") -> "Fior Scira Und Savan Yaurs"
+
+#Write your function here!
+
+def bananafy(astring):
+    newbanana = ""
+    for letter in astring:
+        if letter not in "aeiouAEIOU":
+            newbanana += letter
+        elif letter == "a":
+            newbanana += "u"
+        elif letter == "A":
+            newbanana += "U"
+        elif letter == "e":
+            newbanana += "a"
+        elif letter == "E":
+            newbanana += "A"
+        elif letter == "i":
+            newbanana += "e"
+        elif letter == "I":
+            newbanana += "E"
+        elif letter == "o":
+            newbanana += "i"
+        elif letter == "O":
+            newbanana += "I"
+        elif letter == "u":
+            newbanana += "o"
+        elif letter == "U":
+            newbanana += "O"
+    return newbanana
+
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print the same results as in the examples above.
+print(bananafy("banana"))
+print(bananafy("benene"))
+print(bananafy("AEIOU"))
+print(bananafy("Four Score And Seven Years"))

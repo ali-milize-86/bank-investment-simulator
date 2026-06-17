@@ -1,0 +1,226 @@
+history = []
+
+
+while True:
+    print("*** Welcome To The Sleep Tracker! ****************")
+    print("*** The purpose of the sleep tracker *************")
+    print("*** is to help tracker your sleep ****************")
+    print("*** and make proper adjustments to make **********")
+    print("*** sure you maintain a proper sleep schedule! ***")
+    print("**************************************************")
+    print("**************************************************")
+    print("*** Here are the controls! ***********************")
+    print("*** I = Input your day's sleep! ******************")
+    print("*** H = Print your history! **********************")
+    print("*** R = Print the recommended hours of sleep! ****")
+    print("*** Q = Quit the program! ************************")
+    print("*** L = Load from a file! ************************")
+    print("*** S = Save data in a file! *********************")
+    print("**************************************************")
+    print("**************************************************")
+
+
+    #checking for user command, return if invalid command
+    userinput = input("Input your command!: ")
+    if userinput not in ["I", "H", "R", "Q"]:
+        print("Not an existing command!")
+        continue
+
+    if userinput == "H":
+            for lineofhistory in history:
+                print(lineofhistory)
+            continue
+    
+    if userinput == "Q":
+        break
+
+    if userinput == "R":
+        print("Get 7-8 hours of sleep a day!")
+        continue
+    
+    
+
+
+
+
+
+    #placeholder to future test the time
+    timetester = []
+    while True:
+    #start the code for input "I"   
+        if userinput == "I":
+            datemonthyeareSTARTINPUT = input("When did you sleep? - Ex: Month/Day/Year: ")
+        #checking to make sure the input "I" is a string
+            try:
+                testdatemonthyearINT = str(datemonthyeareSTARTINPUT)
+            
+            except:
+                print("Not an appropriate format")
+    
+        
+        #check the day/month/year validation
+            datemonthyeareSTARTINPUTXSPLITX = datemonthyeareSTARTINPUT.split("/")
+
+            if int(datemonthyeareSTARTINPUTXSPLITX[1]) >= 1 and int(datemonthyeareSTARTINPUTXSPLITX[1]) <= 31:
+                pass
+            else:
+                print("Please input a valid day!")
+                break
+
+            if int(datemonthyeareSTARTINPUTXSPLITX[0]) >= 1 and int(datemonthyeareSTARTINPUTXSPLITX[0]) <= 12:
+                pass
+            else:
+                print("Please input a valid month!")
+                break
+
+            if int(datemonthyeareSTARTINPUTXSPLITX[2]) >= 1950 and int(datemonthyeareSTARTINPUTXSPLITX[2]) <= 2026:
+                pass
+            else:
+                break
+
+
+
+            timestartINPUT = input("What time did you sleep? - Ex: Hour:Minute: ")
+        #splitting the time of bedtime into two pieces to check if its valid
+            timestartINPUTsplit = timestartINPUT.split(":")
+            
+            amorpmINPUT = input("Did you sleep in the AM or PM? - Ex AM/PM: ")
+
+            #check if the AM or PM is correct
+
+            try:
+                if amorpmINPUT == "AM" or amorpmINPUT == "PM":
+                    pass
+            except:
+                print("""Input whether you woke up in the "AM" or "PM""")
+
+            try:
+                testedtimeINPUT = int(timestartINPUTsplit[0])
+            except:
+                print("Please input a digit!")
+                break
+            try:
+                testedtimeINPUT = int(timestartINPUTsplit[1])
+            except:
+                print("Please input a digit!")
+                break
+
+            
+
+        
+        #checking to make sure the hour part of the time is withing 1 to 12 hours
+            if int(timestartINPUTsplit[0]) >= 1 and int(timestartINPUTsplit[0]) <= 12:
+                pass
+            else:
+                print("Not a valid time")
+                break
+            #checking to make sure the minutes are within 0 and 59
+            if int(timestartINPUTsplit[1]) >= 0 and int(timestartINPUTsplit[1]) <= 59:
+                pass
+            else:
+                print("Not a valid input for minute!")
+                break
+        
+            #ask the user to input what time did they wake up
+
+            wakeupINPUT = input("What time did you wake up? - Ex: Hour:Minute: ")
+
+
+            #check the user wakeuptime if its valid
+
+
+            wakeupINPUTSPLIT = wakeupINPUT.split(":")
+
+            try:
+                testwakeupinput = int(wakeupINPUTSPLIT[0])
+            except:
+                print("Please input a number!")
+
+
+            try:
+                if testwakeupinput >= 1 and testwakeupinput <= 12:
+                    pass
+            except:
+                print("Please enter a valid hour!")
+
+
+            try:
+                testwakeupinput = int(wakeupINPUTSPLIT[1])
+                pass
+            except:
+                print("Please input a number!")
+                break
+
+            try:
+                if testwakeupinput >= 0 and testwakeupinput <= 59:
+                    pass
+            except:
+                print("Please input a valid minute!")
+                break
+
+            #ask whether the user woke up in the am or pm
+            amorpmWAKEUPINPUT = input("""Did you wake up in the "AM" or "PM"?: """)
+
+            #check if the user inputted a valid format for am or pm
+            try:
+                if amorpmWAKEUPINPUT == "AM" or amorpmWAKEUPINPUT == "PM":
+                    pass
+            except:
+                print("""Please input whether you woke up in the "AM" or "PM"!""")
+                break
+            
+            #appending the date into the history
+            history.append("User slept on " + datemonthyeareSTARTINPUT + ", and went to bed at " + timestartINPUT + amorpmINPUT + ", and User woke up at " + wakeupINPUT)
+
+            #ask the user to input the time they woke up
+
+            break
+
+
+
+        
+        
+
+
+
+
+
+
+
+
+        
+        
+
+        
+
+
+        
+
+
+
+
+
+        
+
+
+
+
+
+
+        
+
+
+
+
+    
+
+
+    
+
+
+
+
+        
+
+
+
